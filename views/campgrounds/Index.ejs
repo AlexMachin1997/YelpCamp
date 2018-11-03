@@ -1,0 +1,118 @@
+<% include ../partials/header %>
+
+<div class="container">
+    
+    <!-- Featured Campground Banner-->
+    <header class="jumbotron">
+        
+        <!-- Jumbotron Title--->
+        <h1>Welcome To YelpCamp</h1>
+        
+        <!-- Jumbotron Subheading -->
+        <h4>View Our Amazing Handpicked Campsites</h4>
+        
+        <!-- More Information Button-->
+        <a class="btn btn-primary btn-large" href="/campgrounds/new"> Add Your Own Campsite </a>
+    </header>
+    
+    <!-- Inline Styling Which Wraps Images Together -->
+    <div class="row" id ="featured-wrap">
+        
+        <!-- Displays All Campgrounds -->
+        <% campgrounds.forEach(function(campground){ %>
+            <div class="col-sm-12 col-md-6 col-lg-3">
+                
+                <!-- Each Campground Will Have The Below Data And Stylings -->
+                <div class="thumbnail">
+                    
+                    
+                    <!-- Campground Image -->
+                    
+                    <!-- Mobile Link (Image Clickable )-->
+                    <a class="mobile-link"href="/campgrounds/<%= campground._id %>">
+                        <img class="featured-campground-image" src="<%= campground.image %>">
+                    </a>
+                    
+                    <!-- Desktop Lin (Image Not Clickable)-->
+                    <div class="desktop-link mx-auto">
+                        <img class="featured-campground-image" src="<%= campground.image %>">
+                    </div>
+                    
+                    
+                    <!-- Displays Campground Name + Who Its Associated To -->
+                    <div class="caption">
+                    
+                        <!-- Campground Name -->
+                        <h5><%= campground.name %></h5>
+                        
+                        <!-- Owner Of Campground With Link To Profile Page -->
+                        <h6>
+                            Created by <a href="/users/<%= campground.author.id %>">
+                            <%= campground.author.username %>
+                        </h6>
+                        
+                    </div>
+                    
+                    <!-- More Information Button, Goes To Show Page -->
+                    <div class="more-information-button">
+                        
+                        <!-- More Information Button -->
+                        <a href="/campgrounds/<%= campground._id %>" class="btn btn-primary"> More Information</a>
+                                                
+                    </div>
+                    
+                    <hr class="index-landing-line">
+                    
+                </div>
+                                
+            </div>
+        <% }); %> 
+    </div>
+    
+    <!-- Navigation Bar On Bottom Of The Page -->
+    <!-- Credit Goes To Zarko For Creating This  -->
+    
+    <nav>
+        <ul class="pagination justify-content-center">
+            <% if (pages && pages > 0) { %>
+                    <% if (current == 1) { %>
+                        <li class="disabled page-item"><a class="page-link">First</a></li>
+                        
+                        <% } else { %>
+                        
+                        <li class="page-item"><a class="page-link" href="/campgrounds">First</a></li>
+                    <% } %>             
+            
+                    <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+                    
+                    <% if (i !== 1) { %>
+                            <li class="page-item disabled"><a class="page-link">...</a></li>
+                    <% } %>
+                    
+                    <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+                    
+                        <% if (i == current) { %>
+                            <li class="page-item active"><a class="page-link"><%= i %></a></li>    
+                        <% } else { %>
+                            <li class="page-item"><a class="page-link" href="/campgrounds?page=<%= i %>"><%= i %></a></li>
+                        <% } %>
+                        
+                        <% if (i == Number(current) + 4 && i < pages) { %>
+                            <li class="disabled page-item"><a class="page-link">...</a></li>
+                        <% } %>
+                        
+                    <% } %>
+    
+                    <% if (current == pages) { %>
+                        <li class="disabled page-item"><a class="page-link">Last</a></li>
+                    <% } else { %>
+                        <li class="page-item"><a class="page-link" href="/campgrounds?page=<%= pages %>">Last</a></li>
+                    <% } %>
+            <% } %>
+        </ul>
+    </nav>
+</div>
+
+
+
+<% include ../partials/footer %>

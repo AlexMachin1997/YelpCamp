@@ -1,0 +1,532 @@
+/* Global Tags */
+
+body {
+  padding-top: 70px;
+  font-family: 'Roboto', sans-serif;
+}
+
+footer {
+  background-color: #f5f5f5;
+  padding: 10px;
+  margin-top: 20px;
+  padding-right: 0px;
+}
+
+.facebook-button {
+  background-color: #3b5998;
+  color: white;
+}
+
+.facebook-button:hover {
+  background-color: #3b5998;
+  color: white;
+}
+
+
+
+
+/* Register Page */
+
+.g-recaptcha>div {
+  width: 100% !important;
+}
+
+.g-recaptcha iframe {
+  width: 100% !important;
+}
+
+
+/* Navigation Menu */
+
+.active {
+  color: black;
+}
+
+.active:hover {
+  text-decoration: none;
+}
+
+.navbar li {
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+.nav-item:hover {
+  text-decoration: none;
+}
+
+.navbar-avatar {
+  border-radius: 100%;
+  height: 30px;
+  width: 30px;
+}
+
+/* Landing Page  */
+
+#landing-header {
+  z-index: 1;
+  position: relative;
+  text-align: center;
+  padding-top: 40vh;
+}
+
+#landing-header h1 {
+  color: #fff;
+}
+
+/* Slideshow */
+
+.slideshow {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.slideshow li {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-size: cover;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  opacity: 0;
+  z-index: 0;
+  animation: imageAnimation 50s linear infinite;
+}
+
+.slideshow li:nth-child(1) {
+  background-image: url(/images/Campground-Image-1.jpg)
+}
+
+.slideshow li:nth-child(2) {
+  background-image: url(/images/Campground-Image-2.jpg);
+  animation-delay: 10s;
+}
+
+.slideshow li:nth-child(3) {
+  background-image: url(/images/Campground-Image-3.jpg);
+  animation-delay: 20s;
+}
+
+.slideshow li:nth-child(4) {
+  background-image: url(/images/Campground-Image-4.jpg);
+  animation-delay: 30s;
+}
+
+.slideshow li:nth-child(5) {
+  background-image: url(/images/Campground-Image-5.jpg);
+  animation-delay: 40s;
+}
+
+@keyframes imageAnimation {
+  0% {
+    opacity: 0;
+    animation-timing-function: ease-in;
+  }
+  10% {
+    opacity: 1;
+    animation-timing-function: ease-out;
+  }
+  20% {
+    opacity: 1
+  }
+  30% {
+    opacity: 0
+  }
+}
+
+/* Older browser support - .no-cssanimations class added by modernizr */
+
+.no-cssanimations .slideshow li {
+  opacity: 1;
+}
+
+/* Featured Camgprounds Styling */
+
+.more-information-button {
+  margin-bottom: 10px;
+}
+
+.mobile-link {
+  display: none;
+}
+
+.desktop-link {
+  display: block;
+}
+
+.index-landing-line {
+  display: none;
+}
+
+.featured-campground-image {
+  height: 230px;
+}
+
+.thumbnail img {
+  width: 100%;
+}
+
+.thumbnail {
+  padding: 0;
+}
+
+.thumbnail .caption-full {
+  padding: 9px;
+}
+
+#featured-wrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+
+/* Show A Singular Campground Page */
+
+.campground-price {
+  float: right;
+}
+
+.campground-image {
+  width: 100%;
+  height: 250px;
+  margin-bottom: 10px;
+}
+
+.delete-form {
+  display: inline;
+}
+
+/*.form-group {
+  */
+
+/*  margin-bottom: 0;*/
+
+/*}*/
+
+#campground-comment-submit {
+  height: 50px;
+  margin: 0;
+  padding: 0;
+}
+
+#campground-comment-input {
+  height: 50px;
+  border-radius: 10px;
+  margin: 0;
+}
+
+#map {
+  height: 300px;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+
+/* Error Page Styling  */
+
+#Error-Page-Container {
+  margin: 75px 0px 120px 0px;
+}
+
+
+/* Form Styling */
+
+.forms {
+  width: 40%;
+  margin: 72px auto;
+}
+
+.forms-title {
+  text-align: center;
+}
+
+
+
+/* Profile Styling */
+
+.avatar {
+  width: 250px;
+  height: 250px;
+}
+
+.name {
+  font-weight: 700;
+}
+
+.profile-gallery {
+  list-style: none;
+  padding-left: 0;
+}
+
+.profile-gallery-images {
+  width: 269px;
+  height: 269px;
+  margin-bottom: 10px;
+}
+
+.button {
+  width: 100px;
+  height: 40px;
+}
+
+.button:hover {
+  cursor: pointer;
+}
+
+.media-image {
+  width: 200px;
+  height: 200px;
+  margin: 8px;
+}
+
+.tab-pane {
+  margin: 5px;
+}
+
+.input-group-prepend {
+  margin: 0;
+  padding: 0;
+}
+
+.input-group-text {
+  width: 75px;
+}
+
+.fa {
+  margin: 5px;
+  margin-left: 0;
+}
+
+
+/*#profile-nav-tabs {
+  */
+
+/*  overflow-y: auto;*/
+
+/*  height: 480px;*/
+
+/*}*/
+
+a:hover,
+.more-information-button:hover,
+.page-item:hover,
+.page-link:hover {
+
+  cursor: pointer;
+}
+
+.footer-link {
+  width: 300px;  
+}
+
+/* Media Queries */
+
+@media (max-height: 420px) {
+ #Useful-Links {
+    display: none;
+  }
+
+  #Privacy-Policy {
+    display: none;
+  } 
+}
+
+
+
+/* Tablets- Nexus 7, Apple Ipad Height*/
+@media (max-height: 472.2px) {
+  .jumbotron {
+    padding: 20px;
+  }
+
+  .jumbotron h1 {
+    font-size: 170%;
+  }
+
+  .jumbotron h4 {
+    font-size: 100%;
+  }
+
+  .campground-image {
+    height: 50%;
+  }
+  
+  .footer-link {
+    width: 100%;  
+  }
+}
+
+
+/* Tablets - Nexus 7, Apple Ipads Width */
+
+@media (max-width: 1024px) {
+  .avatar {
+    width: 105%;
+  }
+  .more-information-button {
+    display: none;
+  }
+
+  .mobile-link {
+    display: block;
+  }
+
+  .desktop-link {
+    display: none;
+  }
+
+  .campground-image {
+    height: 300px;
+  }
+
+  .profile-gallery-images {
+    width: 180px;
+    height: 150px;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 10px;
+  }
+}
+
+
+
+
+
+/* Large Screen Width */
+
+@media (max-width: 1000px) {
+  .avatar {
+    width: 100%;
+  }
+
+  /*#Useful-Links {*/
+  /*  display: none;*/
+  /*}*/
+  /*#Privacy-Policy {*/
+  /*  display: none;*/
+  /*}*/
+}
+
+
+/* Medium Screen Size Width  */
+
+@media (max-width: 768px) {
+
+  .forms {
+    width: 80%;
+  }
+
+  .avatar {
+    width: 100%;
+  }
+
+  .profile-gallery-images {
+    width: 100%;
+    height: 200px;
+    padding: 0;
+    margin: 1.5px;
+  }
+
+  .index-landing-line {
+    display: block;
+  }
+
+  .mobile-link {
+    display: block;
+  }
+
+  .desktop-link {
+    display: none;
+  }
+
+  #Application-Support a {
+    width: 100%;
+  }
+
+  #Social-Support a {
+    width: 100%;
+  }
+
+  .avatar {
+    height: 300px;
+    width: 500px;
+
+  }
+}
+
+
+/* Small Screen Width*/
+
+@media (max-width: 576px) {
+
+  .campground-image {
+    height: 175px;
+  }
+
+  .jumbotron h1 {
+    font-size: 170%;
+  }
+
+  .jumbotron h4 {
+    font-size: 100%;
+  }
+
+  .avatar {
+    height: 300px;
+    width: 100%;
+  }
+
+
+  .footer-link {
+    width: 100%;
+  }
+
+  .forms {
+    width: 75%;
+  }
+
+  .profile-gallery-images {
+    width: 100%;
+  }
+
+  .more-information-button {
+    display: none;
+  }
+
+  .index-landing-line {
+    display: block;
+  }
+
+  .mobile-link {
+    display: block;
+  }
+
+  .desktop-link {
+    display: none;
+  }
+
+  #Useful-Links {
+    display: none;
+  }
+
+  footer {
+    margin: 0;
+  }
+  #Privacy-Policy {
+    display: none;
+  }
+
+
+  textarea {
+    height: 110px;
+  }
+}

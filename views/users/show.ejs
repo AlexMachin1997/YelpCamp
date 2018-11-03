@@ -1,0 +1,204 @@
+<% include ../partials/header %>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 col-lg-3 col-md-5">
+    		
+    		<!-- Avatar Image -->
+    		<img class="avatar" src="
+    		    <%= user.avatar %>" 
+    		    alt="user profile image"
+    		>
+    		
+    		<!-- Account Name -->
+    		<h4 class="name">
+    		    <%= user.fullName %>
+    		</h4>
+    		
+    		<!-- Username -->
+    		<p>
+    		    <%= user.username %>
+    		</p>
+    		
+    	   <!-- Bio -->
+    		<p>
+    		    <%= user.bio%>
+    		</p>
+    		
+    		<% if(typeof user.bio === 'undefined' || user.bio.length === 0) {%>
+    		    <p> No bio provided for the profile yet </p> 
+            <% } %>
+    		  		
+        		
+    		<!-- Email -->
+    		<div class="caption">
+    		    <i class="fa fa-lg fa-envelope-o" aria-hidden="true"></i>
+    		    <a href="mailto:<%= user.email %>"><%= user.email %></a>
+    		</div>
+    	    
+    	   <!-- Account Creation Date -->
+    	    <p>
+    	        <i class="fa fa-lg fa-calendar" aria-hidden="true"></i>
+    	        Joined <%= moment(user.createdAt).format('MMMM YYYY') %>
+    	    </p>
+        </div>
+ 
+        <!-- Profile Tabs -->
+        <div class="col-sm-12 col-lg-9 col-md-7" id="profile-nav-tabs">
+            
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+                
+                <li class="nav-item">
+                    <a class="nav-link active " data-toggle="tab" href="#campgrounds" role="tab">Campgrounds </a>
+                </li>
+                                 
+                 <!--<li class="nav-item">-->
+                 <!--  <a class="nav-link" data-toggle="tab" href="#favourites" role="tab">Favourites</a>-->
+                 <!--</li>-->
+                 
+                <!--<li class="nav-item">-->
+                 <!--  <a class="nav-link" data-toggle="tab" href="#friends" role="tab">Favourites</a>-->
+                 <!--</li>-->
+                 
+                <!--<li class="nav-item">-->
+                 <!--  <a class="nav-link" data-toggle="tab" href="#followers" role="tab">Favourites</a>-->
+                 <!--</li>-->
+                 
+                 <li class="nav-item">
+                   <a class="nav-link" data-toggle="tab" href="#media" role="tab">Media</a>
+                 </li>
+                 
+                 <% if(currentUser && user._id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
+    
+                     <li class="nav-item">
+                       <a class="nav-link" data-toggle="tab" href="#settings" role="tab">Settings</a>
+                     </li>
+                 
+                 <% } %>
+            
+            </ul>
+            
+            
+            <!-- Tab Content  -->
+            <!-- Tab Content Triggered On Click Of The Tab Menu -->
+            <div class="tab-content">
+  
+                  <div class="tab-pane active" id="campgrounds" role="tabpanel">
+   		  		              
+                    <!-- Displays All Campgrounds -->
+                    <% campgrounds.forEach(function(campground) { %>
+                                                     
+                    <!-- Media Section  -->    
+                        <div class="media">
+                            <div class="media-body">
+                                
+                                <!-- Campground Nam -->
+                                <!-- The Link Accesses The Object ID Of Campgrounds, On Click It Accesses The Campground -->
+                                <a class="media-heading" href="/campgrounds/<%= campground._id %>"><%= campground.name %></a>
+                                
+                                <!-- Campground Description -->
+                                <p><%= campground.description %></p>                            
+                                
+                                <!-- Campground Created On -->
+                                <p> Creates <%= moment(campground.createdAt).fromNow() %> </p>
+                                
+                            </div> <!-- End Of Media Body Class -->
+                        </div> <!-- End Of Media Class -->
+                        <hr>
+                    <% }); %> <!-- End Of EJS Statement -->
+                </div> <!-- End Of Tab Section  -->
+                
+                
+                <!-- Displays Settings -->               
+                <div class="tab-pane" id="settings" role="tabpanel">
+                    
+                    <!-- Form Title -->
+                    <h3 class="text-center"> Profile Details : </h3>
+                
+                    <!-- Update Form -->
+                    <form action="/users/<%=user.id%>?_method=PUT" method="POST" enctype="multipart/form-data" id="settings-form">
+                               
+                        <!-- Avatar -->
+                        <div class="form-group">
+                            <label for="name">Profile Picture : </label>
+                            <input class="form-control" type="file" name="avatar" id="avatar" placeholder="Select A Profile Picture" required value = "<%= user.avatar %>">
+                        </div>
+                        
+                        <!-- Username -->                   
+                        <div class="form-group">
+                            <label for="name">Username :</label>
+                            <input class="form-control" type="text" name="username" placeholder="Enter Your Username Here" required value="<%= user.username %>">
+                        </div>
+                        
+                        <!-- Full Name  -->
+                        <div class="form-group">
+                            <label for="name">Account Name  :</label>
+                            <input class="form-control" type="text" name="fullName" placeholder="Enter Your Name Here" required value="<%= user.fullName %>">
+                        </div>
+                    
+                         <!-- Bio -->            
+                        <div class="form-group">
+                            <label for="name">Bio :</label>
+                            <textarea class="form-control" type="text"col="6" rows="2" name="bio" placeholder="Enter A Description About Yourself" maxlength="160"><%= user.bio %></textarea>
+                        </div>
+                            
+                        <!-- Email -->            
+                        <div class="form-group">
+                            <label for="name">Email : </label>
+                            <input class="form-control" type="text" name="email" placeholder="Enter Your Email Here" required value="<%= user.email%>">
+                        </div>
+                        
+                                
+                        <!-- Sign Up Button -->
+                        <div class="form-group">
+                            <button class="btn btn-lg btn-primary btn-block">Update</button>
+                        </div>
+                    </form> <!-- -End Of Update Form ->     
+                
+                    
+                    <!-- Decativate Button -->            
+                    <!-- If The User Logged In & Owner Of The Account The Account Match Then Show Deactivate Button -->
+                    <% if(currentUser && user._id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
+                        
+                        <!-- Deactivate Button For User -->
+                        <form class="delete-form user-profile-button" action="/users/<%= user._id %>?_method=DELETE" method="POST">
+                            <button class="btn btn-lg btn-danger btn-block" id="settings">Deactivate</button>
+                        </form>   
+                    <% } %> <!-- End Of Conditional Statement -->
+                    
+                </div> <!-- End Of Settings Tab  -->                                
+                                             
+                <!-- New Sections Coming In An Update -->                                    
+                
+                <!--<div class="tab-pane" id="favourites" role="tabpanel">-->
+
+                <!--</div>-->
+                
+                <!--<div class="tab-pane" id="friends" role="tabpanel">-->
+
+                <!--</div>-->
+                
+                <!--<div class="tab-pane" id="followers" role="tabpanel">-->
+
+                <!--</div>-->
+                                
+                
+                <!-- Media Pane -->  
+                <div class="tab-pane" id="media" role="tabpanel">
+                    
+                    <!-- Campground Media -->
+                    <div class="profile-gallery nav-justified">
+                        
+                        <!-- Displays Each Campground Image The User Owns -->
+                        <% campgrounds.forEach(function(campground) { %>
+                            <a href="/campgrounds/<%= campground.id %>"><img class="profile-gallery-images" src="<%= campground.image%>" data-toggle="tooltip" data-placement="top" title="<%= campground.name%>"></a>
+                        <% }); %> <!-- End Of Conditional -->
+                        
+                    </div> <!-- End Of Media Profile Gallery -->
+                </div> <!-- End Of Media Content -->
+            </div> <!-- End Of Tab Content -->   
+        </div> <!-- End Of Profile Tab -->
+    </div> <!-- End Of Row --> 		
+</div> <!-- End Of Container -->
+
+<% include ../partials/footer %>

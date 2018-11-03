@@ -1,0 +1,45 @@
+<% include partials/header %>
+ 
+<div class="container"> 
+    <div class="row">
+        <div class="forms">
+            <h1 class="forms-title">Account Login</h1>
+    
+            <form action="/login" method="post">
+                
+                    <!-- Label For Username -->
+                    <label for="username">Username :</label>
+                        
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text justify-content-center"><i class="fa fa-2x fa-user" aria-describedby="Username" aria-label="Username" aria-hidden="true"></i></span>
+                            </div>
+                                        
+                        <input class="form-control" type="text" name="username" placeholder="Enter Your Username">
+                    </div>
+                    
+                    <!-- Label For Password -->
+                    <label for="password">Password :</label>
+                                        
+                      <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text justify-content-center"><i class="fa fa-2x fa-key" aria-describedby="Password" aria-label="Password" aria-hidden="true"></i></span>
+                            </div>
+                            
+                        <input class="form-control" type="password" name="password" placeholder="Enter Your Password">
+                    </div>
+                
+                <!-- Submit Button -->
+                <div class="form-group">
+                    <button class="btn btn-lg btn-primary btn-block">Login</button>
+                </div>
+            </form>
+
+            <p>Dont Have An Account ? <a class="text-center" href="/register">Register Here</a>
+            <p>Forgot Your Password ? <a class="text-center" href="/forgot">Reset Here </a>
+
+
+        </div>
+    </div>
+</div>
+<% include partials/footer %>

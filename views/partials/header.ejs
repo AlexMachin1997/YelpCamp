@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    
+        <!-- Title Of Application -->
+        <title>YelpCamp</title>
+        
+        <!-- Framework-->
+        <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+        
+        <!-- Popper JS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js">
+        
+        <!-- Custom Stylesheet-->
+        <link rel="stylesheet" href="/stylesheets/main.css">
+        
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="/font-awesome-4.7.0/css/font-awesome.min.css">
+        
+        <!-- Custom Slideshow Backwards Compatability -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript" async></script>
+                        
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+        
+        <!-- Viewport Of The Device The Application Is Being Viewed On -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <!-- Favicon Link -->
+        <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+        
+        <!-- META DATA-->
+        <meta name="keywords" content="camping,application,web,web-application,yelpcamp,Alex,Machin,udemy,UDEMY,bootstrap,node js,passport,express,mongoDB,flash,connect-flash,ejs,templating,templates,moment,google maps,association,override,bodyParser,geocode,geocoder,font-awesome,front-end development, back-end development, MEN Stack" /> 
+        <meta name="robot" content="index,follow" />
+        <meta name="description" content="Welcome to YelpCamp, yelpcamp is a camping application which enables users to add,edit and delte camp sites.">
+        
+                 <!-- Global site tag (gtag.js) - Google Analytics -->
++        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-116286528-1"></script>
++        <script>
++          window.dataLayer = window.dataLayer || [];
++          function gtag(){dataLayer.push(arguments);}
++          gtag('js', new Date());
++        
++          gtag('config', 'UA-116286528-1');
++        </script>
+        
+
+    </head>
+    
+    <body>
+        
+    <div class="container-full">
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+          
+          <a class="navbar-brand" href="/campgrounds">YelpCamp <i class="fa fa-free-code-camp fa-lg" aria-hidden="true"></i></i></a>
+          
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">         
+                <li class="<%= typeof page !== 'undefined' && page === 'featuredCamps' ? 'active' : '' %>">
+                    <a class="nav-link" href="/campgrounds">Featured Campgrounds</a>
+                </li>  
+                
+                <li class="<%= typeof page !== 'undefined' && page === 'newCamp' ? 'active' : '' %>">
+                    <a class="nav-link" href="/campgrounds/new">Add Your Own Campground</a>
+                </li>
+                
+                 <li class="<%= typeof page !== 'undefined' && page === 'contact' ? 'active' : '' %>">
+                    <a class="nav-link disabled" href="#">Contact Us</a>
+                </li>  
+            </ul>        
+            
+            <ul class="nav navbar-nav navbar-right">
+                <% if(!currentUser){ %>
+                    <li class="<%= typeof page !== 'undefined' && page === 'login' ? 'active' : '' %>">
+                        <a class="nav-link" href= "/login">Login <i class="fa fa-sign-in" aria-hidden="true"></i></a>
+                    </li>
+                    
+                    <li class="<%= typeof page !== 'undefined' && page === 'signUp' ? 'active' : '' %>">
+                        <a class="nav-link" href="/register">Sign Up <i class="fa fa-user-plus" aria-hidden="true"></i></a>
+                    </li>
+                    
+                <% } else { %>
+                    <li>
+                        <a href="/users/<%= currentUser.id %>" class="nav-link"> <img class="navbar-avatar" src=<%= currentUser.avatar %>> <%= currentUser.username %> </a>
+                    </li>
+                    
+                    <li>
+                        <a class="nav-link" href="/logout">Logout <i class="fa fa-sign-out" aria-hidden="true"></i></a>
+                    </li>
+                <% } %>
+            </ul>
+          </div>
+        </nav>
+    </div>
+    
+    <div class="container">
+    
+        <!-- Error Messages Will Appear Here -->
+        <% if(error && error.length > 0) { %>
+            <div class="alert alert-danger" role="alert">
+                <h4> <%= error %></h4>
+            </div>
+        <% } %>
+        
+        <!-- Success Messages Will Appear Here -->
+        <% if(success && success.length > 0) { %>
+            <div class="alert alert-success" role="alert">
+                <h4> <%= success %></h4>
+            </div>
+        <% } %>
+    </div>

@@ -1,0 +1,58 @@
+<% include ../partials/header %>
+
+<div class="container">
+        <div class="row">        
+            <div class="forms">
+            
+                <h1 class="forms-title">Campground Creation</h1>
+    
+                <form action="/campgrounds" method="POST" enctype="multipart/form-data">
+                    
+                <div class="form-group">
+                    <label for="name">Name :</label>
+                    <input class="form-control" type="text" name="name" id="name" placeholder="Yosemite" required>
+                </div>
+                    
+                <div class="form-group">
+                    <label for="image">Image :</label>
+                    <input class="form-control" type="file" id="image" name="image" accept="image/*">
+                </div>
+                
+                <div class="form-group">
+                    <label for="location">Location :</label>
+                    <input id="search_term" class="form-control controls" type="text" name="location" id="location" placeholder="Enter a location here" required>
+                </div>
+                    
+                <div class="form-group">
+                    <label for="description">Description :</label>
+                    <textarea class="form-control controls" rows="6" col="3" type="text" name="description" id="description" placeholder="Enter a description here " required> </textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="price">Price :</label>
+                    <input class="form-control" type="number" name="price" id="price" placeholder="Enter a price here" step="1.00" required>
+                </div>
+                
+                <div class="form-group">
+                    <button class="btn btn-lg btn-primary btn-block">Create Campground</button>
+                </div>
+                    
+            </form>
+            
+            <a href="/campgrounds">Go Back</a>
+        </div>
+    </div>
+</div>
+
+<!-- Adds Autocmplete Suggests -->    
+<script>
+function activatePlacesSearch() {
+    var input = document.getElementById('search_term');
+    var autocomplete = new google.maps.places.Autocomplete(input);
+}
+</script>
+    
+<!-- Exposed API Key -->    
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxjTgqG1ZDzm6ABLrtMOccg037BBowwGI&libraries=places&callback=activatePlacesSearch"></script>
+
+<% include ../partials/footer %>

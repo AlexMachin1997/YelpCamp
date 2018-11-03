@@ -1,0 +1,368 @@
+<% include ../partials/header %>
+
+<div class="container">
+    <div class="row">
+        
+        <div class="col-sm-12 col-lg-4 col-md-12">
+            <img class="img-fluid campground-image" src="<%= campground.image %>" alt="<%= campground.name %>">
+        </div>
+        
+        <div class="col-sm-12 col-lg-8 col-md-12">
+            
+                <!-- Campground Information -->
+                
+                <!-- Campground Price -->
+                <h4 class= "campground-price">£<%= campground.price %> Per Night</h4>
+                
+                <!-- Campground Name -->
+                <h4><a><%= campground.name %></a></h4>
+                
+                <!-- Campground Description -->
+                <p><%= campground.description %></p>
+                
+                <!-- Campground Location-->
+                <p>Location : <em><%= campground.location %></p></em> 
+                
+                <!-- Shows Campground Creation Date & Inlcudes A Link To User Profile -->
+                <p><em>Submitted by: <a href="/users/<%= campground.author.id %>"><%= campground.author.username %></em></a> <em><%= moment(campground.createdAt).fromNow() %></em>
+
+            </div>
+        </div>
+                  
+        <!-- No Row Nedded  Goes Across Screen Fully -->                    
+        <!-- Campground Map -->            
+        <div id="map">
+            <!-- No Code Needed Here The ID Is Refered To In The JS And The Map Appears -->
+        </div>
+
+            
+            
+        <!-- If The User Owns The Camp Then The Edit And Delete Buttons Will Appear -->    
+        <% if(currentUser && campground.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>                
+            
+            <!-- Edit Button-->
+              <a class="btn btn-xl btn-warning text-white" href="/campgrounds/<%= campground._id %>/edit">Edit</a>
+            
+            <!-- Delete Button -->
+            <!-- Form Needed Because An Action Is Required-->
+            <form class="delete-form" action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
+                <button class="btn btn-xl btn-danger">Delete</button>
+            </form>
+            
+            <hr>
+        <% }%>
+            
+            
+        <!-- Comments Section -->    
+        <div class="well">
+            <!-- Form To Enter Your Comment In -->
+            <form action = "/campgrounds/<%= campground._id %>/comments" method="POST">
+                <div class="row">
+                    
+                    <div class="col-lg-9 col-md-9">
+                        <div class="form-group">
+                          <input id="campground-comment-input" class="form-control" type="text" name = "comment[text]" placeholder="Enter Your Comment Here">
+                        </div> 
+                    </div>  
+                        
+                    <div class="col-lg-3 col-md-3">
+                        <div class="text-right">
+                            <div class="form-group">
+                                <button id="campground-comment-submit" class="btn btn-large btn-primary btn-block"> Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>   
+            
+            <!-- Displays All Avaliable Comments -->
+                <div class="row">
+                  <% campground.comments.forEach(function(comment){ %>                   
+                    <div class="col-lg-12 col-md-12">
+                    
+                        <hr>  
+                            <!-- Needs Finishing (Cloudinary Code Required -->
+                            <!--<img class="media-object img-circle small-circle" src="<%= comment.author.avatar %>" alt="tiny avatar">-->
+                          
+                            <strong>
+                                <%=comment.author.username %>
+                            </strong>
+                            
+                            <!-- Shows When Comment Was Created By Using MomentJS-->
+                            <span>
+                                <%= moment(comment.createdAt).fromNow() %>
+                            </span>
+                            
+                            <div>
+                                <%= comment.text %>
+                            </div>
+                            
+                        <!-- If the current user logged in is the author of the comment then they can edit or destory it-->
+                        <% if(currentUser && comment.author.id.equals(currentUser._id)|| currentUser && currentUser.isAdmin){ %>
+          
+                          <!-- Edit Button -->
+                          <a class="btn btn-xs btn-warning text-white" href="/campgrounds/<%=campground._id %>/comments/<%=comment._id%>/edit">
+                              Edit
+                          </a>
+                          
+                          <!-- Delete Button-->
+                          <form class="delete-form" action="/campgrounds/<%=campground._id %>/comments/<%=comment._id%>?_method=DELETE" method="POST">
+                              <input type="submit" class="btn btn-xs btn-danger" value="Delete">    
+                          </form>
+                        <% }%>   
+                    </div>
+                  <% }) %>
+                </div>
+        </div>
+    </div>    
+<script>
+  function initMap() {
+    var lat = <%= campground.lat %>;
+    var lng = <%= campground.lng %>;
+    var center = {lat: lat, lng: lng };
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 15,
+        styles : [
+          {
+            "elementType": "geometry",
+            "stylers": [
+              {
+                "color": "#ebe3cd"
+              }
+            ]
+          },
+          {
+            "elementType": "labels.text.fill",
+            "stylers": [
+              {
+                "color": "#523735"
+              }
+            ]
+          },
+          {
+            "elementType": "labels.text.stroke",
+            "stylers": [
+              {
+                "color": "#f5f1e6"
+              }
+            ]
+          },
+          {
+            "featureType": "administrative",
+            "elementType": "geometry.stroke",
+            "stylers": [
+              {
+                "color": "#c9b2a6"
+              }
+            ]
+          },
+          {
+            "featureType": "administrative.land_parcel",
+            "elementType": "geometry.stroke",
+            "stylers": [
+              {
+                "color": "#dcd2be"
+              }
+            ]
+          },
+          {
+            "featureType": "administrative.land_parcel",
+            "elementType": "labels.text.fill",
+            "stylers": [
+              {
+                "color": "#ae9e90"
+              }
+            ]
+          },
+          {
+            "featureType": "landscape.natural",
+            "elementType": "geometry",
+            "stylers": [
+              {
+                "color": "#dfd2ae"
+              }
+            ]
+          },
+          {
+            "featureType": "poi",
+            "elementType": "geometry",
+            "stylers": [
+              {
+                "color": "#dfd2ae"
+              }
+            ]
+          },
+          {
+            "featureType": "poi",
+            "elementType": "labels.text.fill",
+            "stylers": [
+              {
+                "color": "#93817c"
+              }
+            ]
+          },
+          {
+            "featureType": "poi.park",
+            "elementType": "geometry.fill",
+            "stylers": [
+              {
+                "color": "#a5b076"
+              }
+            ]
+          },
+          {
+            "featureType": "poi.park",
+            "elementType": "labels.text.fill",
+            "stylers": [
+              {
+                "color": "#447530"
+              }
+            ]
+          },
+          {
+            "featureType": "road",
+            "elementType": "geometry",
+            "stylers": [
+              {
+                "color": "#f5f1e6"
+              }
+            ]
+          },
+          {
+            "featureType": "road.arterial",
+            "elementType": "geometry",
+            "stylers": [
+              {
+                "color": "#fdfcf8"
+              }
+            ]
+          },
+          {
+            "featureType": "road.highway",
+            "elementType": "geometry",
+            "stylers": [
+              {
+                "color": "#f8c967"
+              }
+            ]
+          },
+          {
+            "featureType": "road.highway",
+            "elementType": "geometry.stroke",
+            "stylers": [
+              {
+                "color": "#e9bc62"
+              }
+            ]
+          },
+          {
+            "featureType": "road.highway.controlled_access",
+            "elementType": "geometry",
+            "stylers": [
+              {
+                "color": "#e98d58"
+              }
+            ]
+          },
+          {
+            "featureType": "road.highway.controlled_access",
+            "elementType": "geometry.stroke",
+            "stylers": [
+              {
+                "color": "#db8555"
+              }
+            ]
+          },
+          {
+            "featureType": "road.local",
+            "elementType": "labels.text.fill",
+            "stylers": [
+              {
+                "color": "#806b63"
+              }
+            ]
+          },
+          {
+            "featureType": "transit.line",
+            "elementType": "geometry",
+            "stylers": [
+              {
+                "color": "#dfd2ae"
+              }
+            ]
+          },
+          {
+            "featureType": "transit.line",
+            "elementType": "labels.text.fill",
+            "stylers": [
+              {
+                "color": "#8f7d77"
+              }
+            ]
+          },
+          {
+            "featureType": "transit.line",
+            "elementType": "labels.text.stroke",
+            "stylers": [
+              {
+                "color": "#ebe3cd"
+              }
+            ]
+          },
+          {
+            "featureType": "transit.station",
+            "elementType": "geometry",
+            "stylers": [
+              {
+                "color": "#dfd2ae"
+              }
+            ]
+          },
+          {
+            "featureType": "water",
+            "elementType": "geometry.fill",
+            "stylers": [
+              {
+                "color": "#b9d3c2"
+              }
+            ]
+          },
+          {
+            "featureType": "water",
+            "elementType": "labels.text.fill",
+            "stylers": [
+              {
+                "color": "#92998d"
+              }
+            ]
+          }
+        ],    
+        center: center,
+        scrollwheel: false,
+        gestureHandling: 'greedy'
+    });
+    
+    var contentString = `
+      <h5><%= campground.name %></h5>
+      <p><%= campground.location %></p>
+      <p><%= campground.description %></p>
+      <p> Created By <%= campground.author.username %>, <%= moment(campground.createdAt).fromNow() %></p>
+    `
+    var infowindow = new google.maps.InfoWindow({
+      content: contentString
+    });
+    var marker = new google.maps.Marker({
+        position: center,
+        map: map
+    });
+    marker.addListener('click', function() {
+      infowindow.open(map, marker);
+    });
+  }
+</script>
+
+            
+<!-- API Key -->
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA09zl2noZAcAc0M9Cd1fcD_k7BxE3Gjgk&callback=initMap" type="text/javascript"></script>
+
+<% include ../partials/footer %>
